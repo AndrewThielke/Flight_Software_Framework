@@ -1,4 +1,4 @@
-# Flight_Software_Framework
+# Flight_Software_Framework (OpenSpaceFSW)
 
 OpenSpaceFSW is an open-source flight software framework designed for spacecraft simulation, autonomous navigation, and secure mission operations. This modular system provides essential functionality for spacecraft, including attitude determination and control (ADCS), guidance and navigation (GNC), telemetry handling, real-time execution, and secure avionics software from scratch. Built using C++ for real-time execution and Python for scripting and simulations, OpenSpaceFSW is made for modularity, ability to be extended upon, and fundamental aerospace security.
 
