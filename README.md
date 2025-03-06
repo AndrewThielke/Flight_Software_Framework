@@ -95,10 +95,14 @@ OpenSpaceFSW is an open-source flight software framework designed for spacecraft
 
 ## During Development
 
-1. Execute the following to Build the Project
+1. Execute the following to Build the Project. This will also tell you the issue(s) you create during development.
 
 '''
-    g++ -o OpenSpaceFSW src/core/main.cpp src/core/scheduler.cpp src/adcs/adcs.cpp src/gnc/gnc.cpp src/telemetry/telemetry.cpp src/security/security.cpp -std=c++17
+    g++ -I src -I /opt/homebrew/opt/openssl/include \
+    -L /opt/homebrew/opt/openssl/lib \
+    -o OpenSpaceFSW \
+    src/core/main.cpp src/core/scheduler.cpp src/adcs/adcs.cpp src/gnc/gnc.cpp src/telemetry/telemetry.cpp src/security/security.cpp \
+    -std=c++17 -lssl -lcrypto
 '''
 
 2. Run the program
