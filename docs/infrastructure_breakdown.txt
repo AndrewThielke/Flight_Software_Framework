@@ -1,0 +1,71 @@
+## Repository Prototype Architecture Breakdown
+# Version v1.0.0
+
+Flight_Software_Framework/
+│── src/                             # Core flight software source code
+
+│   ├── ADCS/                        # Attitude Determination & Control (ADCS)
+│   │   ├── adcs.cpp                 # Main ADCS logic
+│   │   ├── adcs.h                   # ADCS header file
+│   │   ├── (Not Created Yet) quaternion_math.cpp      # Quaternion calculations
+│   │   ├── (Not Created Yet) kalman_filter.cpp        # Sensor fusion logic
+
+│   ├── GNC/                         # Guidance, Navigation & Control (GNC)
+│   │   ├── gnc.cpp                  # Main GNC logic
+│   │   ├── gnc.h                    # GNC header file
+│   │   ├── (Not Created Yet) trajectory_planner.cpp   # Orbit determination algorithms
+│   │   ├── (Not Created Yet) thrust_control.cpp       # Thrust vector control
+
+│   ├── telemetry/                   # Telemetry Handling & Data Logging
+│   │   ├── telemetry.cpp            # Main telemetry module
+│   │   ├── telemetry.h              # Header file
+│   │   ├── (Not Created Yet) data_logger.cpp          # Handles logging telemetry data
+│   │   ├── (Not Created Yet) telemetry_server.cpp     # Sends real-time data
+
+│   ├── CDH/                         # Command & Data Handling (CDH)
+│   │   ├── cdh.cpp                  # Main CDH logic
+│   │   ├── cdh.h                    # CDH header file
+│   │   ├── (Not Created Yet) command_parser.cpp       # Parses incoming commands
+│   │   ├── (Not Created Yet) fault_detection.cpp      # Detects system failures
+
+│   ├── core/                        # Real-Time Execution Engine
+│   │   ├── main.cpp                 # Not Complete
+│   │   ├── scheduler.cpp            # Drives the Prototype
+│   │   ├── scheduler.h              # Header File
+│   │   ├── (Not Created Yet) event_handler.cpp        # Event-driven logic
+
+│   ├── security/                    # Secure coding (encryption, intrusion detection)
+│   │   ├── security.cpp             # Main security module
+│   │   ├── security.h               # Header file
+│   │   ├── (Not Created Yet) encryption.cpp           # AES-256 telemetry encryption
+│   │   ├── (Not Created Yet) intrusion_detection.cpp  # Detect unauthorized system access
+
+
+│   ├── mission_phases/              # Self Explanitory
+│   │   ├── mission_phase.h          # Declares all of the used Mission Phases
+
+
+│   ├── flight_dynamics/             # Flight Dynamics & Metric Computations (eventually will drive simulations)
+│   │   ├── flight_dynamics.cpp      # Computes altitude, velocity, thrust, fuel depletion, etc...
+│   │   ├── flight_dynamics.h        # Header file
+
+
+│   ├── tests/                       # Unit & integration testing
+│   │   ├── (Not Created Yet) test_adcs.cpp            # Tests for ADCS
+│   │   ├── (Not Created Yet) test_gnc.cpp             # Tests for GNC
+│   │   ├── (Not Created Yet) test_telemetry.cpp       # Tests for telemetry
+│   │   ├── (Not Created Yet) test_security.cpp        # Tests for security functions
+
+│── simulation/                      # Simulation tools
+│   ├── flight_sim/                  # Spacecraft simulator (JSBSim, Orbiter API)
+│   │   ├── (Not Created Yet) spacecraft_model.xml     # Define spacecraft parameters for JSBSim
+│   │   ├── (Not Created Yet) orbital_scenarios.py     # Python-based orbital simulations
+│   ├── dashboards/                  # Telemetry visualization (OpenMCT, Grafana)
+│   │   ├── (Not Created Yet) openmct_dashboard.json   # OpenMCT configuration
+│   │   ├── (Not Created Yet) grafana_dashboard.json   # Grafana setup
+
+│── scripts/                         # Python helper scripts (data analysis, automation)
+│   FLIUD                            # Currently obtaining Rocket Specs and Weather Data From The API
+
+│── config/                          # Configuration files
+│   FLIUD                            # Not yet Incorporated

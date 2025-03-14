@@ -1,142 +1,152 @@
 # Flight_Software_Framework (OpenSpaceFSW)
 
-__OpenSpaceFSW__ is an open-source flight software framework designed for realistic spacecraft simulation, autonomous navigation, and secure mission operations.
+**OpenSpaceFSW** is a flight software framework built for **realistic spacecraft simulation**, **autonomous navigation**, and **secure mission operations**. While having no physical hardware integration at the present time, this project aims to replicate the **core logic** of real rocket flight software, with modules for **Flight Dynamics**, **Telemetry**, **Security**, and current placeholders for **ADCS**, **GNC**, and **CDH**. Though, future expansions will integrate these modules fully, along with advanced features like multi-stage separation, mission phase transitions, and real-time data visualization.
 
-This modular system provides critical functionality for the "spacecraft", including attitude determination and control (ADCS), guidance and navigation (GNC), telemetry handling, real-time execution, and secure avionics software, all of which is built from scratch with an emphasis on accuracy and flexibility.
+The ultimate goal of this project is to leverage real-time geographic data and true rocket specs to accurately simulate rocket behavior. This is to enable the evaluation of successes or failures under various conditions to help reduce costs for amateur rocketry.
 
-# Key Features & Enhancements
+## **Key Features & Enhancements**
 
-* __Physics-Based Flight Dynamics__: Computes launch, orbital, and de-orbit phases using real-world physics models pulled from various APIs and reputable sources (Credit to NASA and SpaceX).
-* __Real-Time Environmental Data Integration__: Uses APIs to fetch live weather conditions, gravity variations, and aerodynamic factors.
-* __Modular Telemetry System__: Logs mission-critical data dynamically and supports external visualization tools (i.e. web pages that autolaunch once executued).
-* __Cybersecurity Measures__: Implements secure avionics software to protect against external threats (alert system).
-* __Open and Extensible__: This is built using C++ for real-time execution in addition to Python for scripting, simulations, and API integration. __OpenSpaceFSW__ is highly modular, extensible, and designed with aerospace security in mind.
+- **Physics-Based Flight Dynamics**  
+  Computes the launch, orbital, and de-orbit phases using real-world physics models.  
+  *Credit to NASA and SpaceX for reference data.*
+  
+- **Modular Telemetry System**  
+  Logs the mission-critical data dynamically and supports external visualization tools (e.g., a web page that auto-launches upon execution).
 
-# Project Goals
+- **Secure Avionics Software**  
+  Implements encryption and intrusion detection measures to protect mission data from external threats.
 
-1. Develop a fully functional modular flight software framework for spacecraft.
-2. Implement ADCS, GNC, Telemetry, CDH (Command & Data Handling), and Security subsystems.
-3. Ensure real-time execution with event-driven task scheduling.
-4. Build a secure and fault-tolerant avionics system, incorporating encryption and intrusion detection.
-5. Integrate a telemetry visualization dashboard (OpenMCT, Grafana) for mission operations.
+- **Open & Extensible**  
+  Built primarily in **C++** for real-time execution, with **Python** scripts for simulations and API integration. Emphasizes **flexibility**, **modularity**, and **security** for all flight software operations.
 
-# Future Expansions
+## **Project Goals**
 
-* Flight Dynamics & 3D Visualization (Real-Time). Using JSBSim, which simulates spacecraft and aircraft movement using physics-based modeling (Credit To JSBSim-Team). JSBSim reads attitude, velocity, and control inputs from this Flight_Software_Framework. This way, the user of this application is able to see the spacecraft progress from pre-launch, launch, orbital insertion, mission operations, de-orbit, and end of life (i.e. landing again).*
-* AI-powered autonomous spacecraft operations (Machine Learning-based optimization).
-* Adaptive failure recovery mechanisms for self-healing flight software.
+1. **Develop** a fully functional, modular flight software framework for spacecraft.  
+2. **Implement** the main subsystems: ADCS, GNC, Telemetry, CDH, Security.  
+3. **Ensure** real-time execution with event-driven task scheduling.  
+4. **Build** a secure and fault-tolerant avionics system (encryption, intrusion detection).  
+5. **Integrate** a telemetry visualization dashboard (OpenMCT, Grafana) for mission ops.
 
-# System Architecture
+## **New Mission Phases**
 
-## Core Subsystems
+The software now supports a more **comprehensive rocket flight flow**. In code, these are enumerated in `mission_phase.h` and placeholders exist in `scheduler.cpp` that are currently being worked through:
 
-* __Attitude Determination & Control (ADCS)__: Quaternion-based stabilization, sensor fusion (Kalman Filter).
-* __Guidance, Navigation & Control (GNC)__: Autonomous trajectory planning and maneuvering.
-* __Telemetry Handling__: Data logging, secure transmission, and real-time monitoring.
-* __Command & Data Handling (CDH)__: Processing mission commands and detecting faults.
-* __Security__: Implementing encryption, intrusion detection, and real-time cybersecurity defenses.
-* __Real-Time Execution__: Efficient task scheduling, event-driven flight logic.
+1. **Pre-Launch**  
+2. **Liftoff**  
+3. **Max Q** (maximum aerodynamic pressure)  
+4. **Stage Separation**  
+5. **Upper Stage Burn**  
+6. **Orbit Insertion**  
+7. **Mission Operations**  
+8. **Orbital Adjustments**  
+9. **Deorbit**  
+10. **Reentry**  
+11. **Recovery**  
+12. **Post-Flight**
 
-| Component  | Technology
-| -----------|-----------
-| Languages     | C++ (core FSW), Python (simulations, AI)
-| Flight Dynamics    | JSBSIM, Orbiter SDK
-| Real-Time OS | FreeRTOS, RTEMS, or Linux-based simulation
-| Telemtry Dashboard | OpenMCT
-| Cybersecurity | OpenSSL (encryption), AddressSanitizer (memory safety)
-| Version Control | Git (Github)
+**Note**: These transitions are currently placeholders (e.g., altitude or velocity thresholds). Future updates will refine triggers (time-based, fuel-based, etc.) to be **more realistic**.
 
-# Development Timeline
+## **Future Expansions**
 
-__Phase 1: Planning & Setup (Weeks 1-2)__
+- **Flight Dynamics & 3D Visualization**  
+  Real-time 3D rendering of rocket motion (JSBSim, Orbiter SDK).
+- **AI-Powered Autonomy**  
+  Machine Learning for optimizing trajectory and fault detection.
+- **Adaptive Failure Recovery**  
+  Self-healing flight software to handle subsystem anomalies.
 
-* Define project scope and system architecture.
-* Set up GitHub repository with structured modules.
-* Create initial system architecture diagram.
+## **System Architecture**
 
-__Phase 2: Core FSW Development (Weeks 3-6)__
+### **Core Subsystems**
 
-* Implement ADCS, GNC, Telemetry, CDH, and Real-Time Execution Engine.
-* Establish event-driven task scheduling.
-* Develop a basic test simulation loop.
+- **Attitude Determination & Control (ADCS)**: Placeholder. Will handle orientation, sensor fusion, etc.
+- **Guidance, Navigation & Control (GNC)**: Placeholder. Will handle path planning, advanced maneuvers.
+- **Telemetry Handling**: Data logging, secure transmission, real-time monitoring.
+- **Command & Data Handling (CDH)**: Placeholder. Will process mission commands and fault detection.
+- **Security**: Encryption, intrusion detection, real-time cybersecurity defenses.
+- **Real-Time Execution**: Efficient task scheduling, event-driven logic.
 
-__Phase 3: Secure Programming & Optimization (Weeks 7-9)__
+| **Component**           | **Technology**                               |
+|-------------------------|----------------------------------------------|
+| **Languages**           | C++ (core FSW), Python (scripts, AI)         |
+| **Flight Dynamics**     | JSBSim, Orbiter SDK                          |
+| **Real-Time OS**        | FreeRTOS, RTEMS, or Linux-based simulation   |
+| **Telemetry Dashboard** | OpenMCT, Grafana                             |
+| **Cybersecurity**       | OpenSSL (encryption), AddressSanitizer (mem safety) |
+| **Version Control**     | Git (GitHub)                                 |
 
-* Implement secure avionics software (encryption, intrusion detection, memory safety).
-* Conduct fuzz testing and penetration testing.
-* Develop self-healing fault tolerance mechanisms.
+## **Development Timeline**
 
-__Phase 4: Simulation & Visualization (Weeks 10-12)__
+**Phase 1: Planning & Setup (Weeks 1-2)**
 
-* Integrate with JSBSim for flight simulations.
-* Build a telemetry visualization dashboard (OpenMCT, Grafana).
-* Test software under simulated mission conditions.
+- Define project scope and architecture.
+- Set up GitHub repo with structured modules.
+- Draft system architecture diagram.
 
-__Phase 5: Deployment & Documentation (Weeks 13-14)__
+**Phase 2: Core FSW Development (Weeks 3-6)**
 
-* Finalize code optimizations and modularity improvements.
-* Write detailed developer documentation & API references.
-* Publish open-source release on GitHub.
-* Engage with the aerospace developer community.
+- Implement placeholders for ADCS, GNC, Telemetry, CDH, Real-Time Execution.
+- Establish event-driven scheduling.
+- Create a basic test simulation loop.
 
-# Getting Started
+**Phase 3: Secure Programming & Optimization (Weeks 7-9)**
 
-## When Production Is Ready
+- Implement encryption, intrusion detection, memory safety checks.
+- Conduct fuzz/penetration testing.
+- Develop self-healing fault tolerance mechanisms.
 
-1. Clone the Repository
+**Phase 4: Simulation & Visualization (Weeks 10-12)**
 
-'''
-    git clone <https://github.com/AndrewThielke/Flight_Software_Framework.git>
-    cd Flight_Software_Framework
-'''
+- Integrate with JSBSim for flight simulations.
+- Build a telemetry dashboard (OpenMCT, Grafana).
+- Test under simulated mission conditions.
 
-2. Install Dependancies
+**Phase 5: Deployment & Documentation (Weeks 13-14)**
 
-'''
-    sudo apt install build-essential cmake
-    pip install numpy scipy
-'''
+- Finalize optimizations, modular improvements.
+- Write developer documentation & API references.
+- Publish open-source release.
+- Engage with the aerospace dev community.
 
-3. Run a Test Simulation
+---
 
-'''
-    python sim/test_simulation.py
-'''
+## **Getting Started**
 
-## During Development
+### **Production-Ready (Future)**
 
-1. Execute the following to Build the Project. This will also tell you the issue(s) you create during development.
+1. **Clone the Repository**
 
-'''
-    g++ -I src -I /opt/homebrew/opt/openssl/include \
-    -L /opt/homebrew/opt/openssl/lib \
-    -o OpenSpaceFSW \
-    src/core/main.cpp src/core/scheduler.cpp src/adcs/adcs.cpp src/gnc/gnc.cpp src/telemetry/telemetry.cpp src/security/security.cpp \
-    -std=c++17 -lssl -lcrypto
-'''
+   ```bash'''
+   git clone https://github.com/AndrewThielke/Flight_Software_Framework.git
+   cd Flight_Software_Framework
 
-2. Run the program
+2. **Install Dependencies**
 
-'''
-    ./OpenSpaceFSW
-'''
+   '''bash'''
+   sudo apt install build-essential cmake
+   pip install numpy scipy
 
-3. Should see the below for confirmation of a proper build:
-![Image_of_Example_Output](docs/project_images/first_output_example.jpg)
+3. **Run a Test Simulation**
 
+   '''bash'''
+   [placeholder]
 
-## OR
-Just __execute__ this: FULL_EXECUTE.sh
-*OpenSpaceFSW Full Build & Execution Script*
+### During Development (**CURRENT**)
 
+1. For Mac Users: Execute the FULL_EXECUTE.sh script (*other Operating Systems will be incorporated at a later time...*)
+   '''bash'''
+   ./FULL_EXECUTE.sh
 
-# Contributing
+2. Confirm a proper build occured (*see console/terminal*)
 
-I welcome contributions and would appreciate any constructive criticism! If you're passionate about aerospace software, AI-driven autonomy, or cybersecurity, join me! Reach out to me directly at <andrewthielkesoftware@gmail.com>, I'd love to hear from other developers.
+## Contributing
 
-# Acknowledgements
+I welcome contributions! If you’re passionate about aerospace software, AI-driven autonomy, and space, join us. For major changes, please open an issue first to discuss what you’d like to change.
 
-Special thanks to NASA Open Source Initiative, MIT Space Data Repository, and aerospace engineers that I've worked with for inspiring this project.
+Contact: <AndrewThielkeSoftware@gmail.com>
 
+## Acknowledgements
 
-OpenGL
+NASA Open Source Initiative, MIT Space Data Repository, and the aerospace engineers who helped inspire this project.
+
+*Credit to SpaceX for public rocket data, and JSBSim for advanced flight modeling ideas.*

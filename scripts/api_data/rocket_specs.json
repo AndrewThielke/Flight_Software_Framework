@@ -1,0 +1,43 @@
+{
+    "name": "Falcon 9",
+    "type": "rocket",
+    "height_m": 70,
+    "diameter_m": 3.7,
+    "mass_kg": 549054,
+    "stages": 2,
+    "boosters": 0,
+    "cost_per_launch": 50000000,
+    "success_rate_pct": 98,
+    "first_flight": "2010-06-04",
+    "company": "SpaceX",
+    "country": "United States",
+    "thrust_N": 845000,
+    "thrust_vacuum_N": 914000,
+    "ISP_sea_level": 288,
+    "ISP_vacuum": 312,
+    "fuel_kg": 385000,
+    "engine_type": "merlin",
+    "engine_version": "1D+",
+    "engine_count": 9,
+    "payload_weights": {
+        "Low Earth Orbit": 22800,
+        "Geosynchronous Transfer Orbit": 8300,
+        "Mars Orbit": 4020
+    },
+    "landing_legs": 4,
+    "reusable": true,
+    "burn_time_sec": {
+        "first_stage": 162,
+        "second_stage": 397
+    },
+    "flickr_images": [
+        "https://farm1.staticflickr.com/929/28787338307_3453a11a77_b.jpg",
+        "https://farm4.staticflickr.com/3955/32915197674_eee74d81bb_b.jpg",
+        "https://farm1.staticflickr.com/293/32312415025_6841e30bf1_b.jpg",
+        "https://farm1.staticflickr.com/623/23660653516_5b6cb301d1_b.jpg",
+        "https://farm6.staticflickr.com/5518/31579784413_d853331601_b.jpg",
+        "https://farm1.staticflickr.com/745/32394687645_a9c54a34ef_b.jpg"
+    ],
+    "wikipedia": "https://en.wikipedia.org/wiki/Falcon_9",
+    "description": "Falcon 9 is a two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of satellites and the Dragon spacecraft into orbit."
+}
