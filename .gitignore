@@ -1,0 +1,23 @@
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*.DS_Store  # macOS metadata files
+*.vscode/   # Visual Studio Code workspace settings
+*.iml
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+/build/
+*.o
+*.so
+*.out
+*.exe
+*.a
+*.lib
