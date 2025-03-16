@@ -23,15 +23,13 @@ Flight_Software_Framework/
 │   │   ├── (Not Created Yet) telemetry_server.cpp     # Sends real-time data
 
 │   ├── CDH/                         # Command & Data Handling (CDH)
-│   │   ├── cdh.cpp                  # Main CDH logic
-│   │   ├── cdh.h                    # CDH header file
-│   │   ├── (Not Created Yet) command_parser.cpp       # Parses incoming commands
-│   │   ├── (Not Created Yet) fault_detection.cpp      # Detects system failures
+│   │   ├── cdh.cpp                  # NEW: Controls mission execution & command handling
+│   │   ├── cdh.h                    # NEW: CDH Header File
+│   │   ├── scheduler.cpp            # RELOCATED: Manages real-time execution (moved from core)
+│   │   ├── scheduler.h              # RELOCATED: Scheduler header (moved from core)
 
 │   ├── core/                        # Real-Time Execution Engine
-│   │   ├── main.cpp                 # Not Complete
-│   │   ├── scheduler.cpp            # Drives the Prototype
-│   │   ├── scheduler.h              # Header File
+│   │   ├── main.cpp                 # Calls CDH to start mission execution
 │   │   ├── (Not Created Yet) event_handler.cpp        # Event-driven logic
 
 │   ├── security/                    # Secure coding (encryption, intrusion detection)

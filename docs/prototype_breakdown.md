@@ -11,7 +11,6 @@
 | 6 | __Simulation Loop__ | __[For each loop cycle]:__ <br> - __Telemetry Data Updates__ <br> - Fetch real-time altitude, velocity, and fuel updates <br> - Log data for debugging <br> - __Security Monitoring__ <br> - Encrypt __live telemetry data__ <br> - Print __encrypted output__ <br> - Decrypt the data and __print verification output__ <br> - __Mission Phase Transitions__ <br> - Adjust phase dynamically based on altitude & velocity <br> - Update __burn, deorbit, or orbital insertion logic__ <br> - __System Health Checks__ <br> - Fuel check: trigger warnings when fuel is low <br> - Adjust thrust and drag values dynamically
 | 7 | __Shutdown__ | - Detect `Ctrl + C` signal (`SIGINT`) <br> - Execute __safe shutdown procedure__ <br> - Print __final logs__ before exit
 
-
 # What's Next After Prototype Is Complete?
 
 ## Setting Up True Mission Phase Guidelines (Done)
@@ -25,6 +24,54 @@
 7. Orbital Adjustments or Extended Mission (Start on the foundation for ADCS and GNC)
 8. Deorbit and & Re-Entry (if returning back down to Earth)
 9. Recovery & Post-Flight Operations like the landing event or splashdown. Data analysis and post-flight processing is required here.
+
+__Scheduler Responsibilities (Real-Time Execution)__
+
+1. Calls flight_dynamics
+    - Reads telemetry (altitude, velocity, fuel).
+2. Handles ADCS & GNC Control
+    - Runs attitude determination and control.
+    - Runs navigation and guidance algorithms.
+3. Calls CDH for Decision-Making
+    - Does NOT decide mission phases, just provides data.
+    - Sends telemetry to CDH for decision-making.
+4. Manages Intrusion Detection (security)
+    - Monitors system behavior for anomalies.
+    - Logs security events.
+5. Handles Real-Time Execution Loop
+    - Continuously updates subsystems.
+    - Ensures CDH stays in control of mission decisions.
+
+__CDH Responsibilities__
+
+1. Loads & Validates Mission Parameters
+    - Reads from program_configuration.json.
+    - Ensures valid API data exists before execution.
+
+2. Issues System Commands
+    - Handles commands like START_MISSION, TERMINATE, ABORT.
+    - Manages mission state changes.
+
+3. Determines Mission Phases (updateMissionPhase)
+    - Uses telemetry from scheduler.
+    - Decides when to move between phases (e.g., Liftoff, Max Q, Stage Separation).
+
+4. Controls High-Level Mission Scheduling
+    - Determines when burns, adjustments, and maneuvers occur.
+
+5. Triggers Subsystems as Needed
+    - Decides when to activate/deactivate ADCS, GNC, Security.
+    - Ensures proper operational sequencing.
+
+#### Scheduler = Real-Time Execution
+
+    - Runs execution loop, processes telemetry, calls flight dynamics.
+    - It does NOT make decisions; it only executes and retrieves data.
+
+#### CDH = Mission Control & Decision Making
+
+    - Reads API data, controls mission phase transitions, issues commands.
+    - Decides what to do based on telemetry, scheduler just executes.
 
 ## Refining Flight Dynamics & Physics Calulations For Each Mission Phase and Controling The Correct Margins (__Current Phase__)
 

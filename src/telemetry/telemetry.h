@@ -6,6 +6,18 @@
 #include <fstream>
 #include <string>
 
+
+struct TelemetryData {
+    double altitude;
+    double velocity;
+    double fuel;
+    double thrust;
+    double deltaV;
+    double dragForce;
+};
+
+
+
 class Telemetry {
 private:
     double altitude_m;
