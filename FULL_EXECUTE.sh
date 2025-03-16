@@ -58,15 +58,15 @@ fi
 
 # Execution Confirmation Message
 echo "...All checks passed | Ready to execute OpenSpaceFSW..." | tee -a $LOG_FILE
-read -p "Type 'execute' to begin simulation: " user_input
+read -p "Type 'START_MISSION' to begin simulation: " user_input
 
-# Converts input to lowercase to avoid mismatches just incase
-user_input=$(echo "$user_input" | tr '[:upper:]' '[:lower:]')
 
-if [ "$user_input" != "execute" ]; then
-    echo "~ Aborting execution. Type 'execute' next time to run. ~" | tee -a $LOG_FILE
+# Compare input as-is
+if [ "$user_input" != "START_MISSION" ]; then
+    echo -e "\nAborting execution. Type 'START_MISSION' next time to run." | tee -a $LOG_FILE
     exit 1
 fi
+
 
 # Compile the project
 echo -e "\nCompiling OpenSpaceFSW..." | tee -a $LOG_FILE
@@ -75,13 +75,14 @@ echo -e "\nCompiling OpenSpaceFSW..." | tee -a $LOG_FILE
 JSONCPP_PATH=$(brew --prefix jsoncpp)
 OPENSSL_PATH=$(brew --prefix openssl@3)
 
+
 # Ensure correct environment paths
 export CPATH="$OPENSSL_PATH/include:$CPATH"
 export LIBRARY_PATH="$OPENSSL_PATH/lib"
 
 # Compile the Flight Software
-g++ -I src -I src/flight_dynamics \
-    -I src \
+g++ -g -O0 \
+    -I src -I src/flight_dynamics \
     -I src/core \
     -I src/mission_phases \
     -I src/flight_dynamics \
@@ -94,9 +95,10 @@ g++ -I src -I src/flight_dynamics \
     -L "$JSONCPP_PATH/lib" -ljsoncpp \
     -L "$OPENSSL_PATH/lib" -Wl,-rpath,"$OPENSSL_PATH/lib" -lssl -lcrypto \
     -o OpenSpaceFSW \
-    src/core/main.cpp src/core/scheduler.cpp src/flight_dynamics/flight_dynamics.cpp \
+    src/core/main.cpp src/cdh/scheduler.cpp src/cdh/cdh.cpp src/flight_dynamics/flight_dynamics.cpp \
     src/gnc/gnc.cpp src/adcs/adcs.cpp src/security/security.cpp src/telemetry/telemetry.cpp \
     -std=c++17
+
 
 # Handle compilation failure(s) - PLACEHOLDER, will build on this
 if [ $? -ne 0 ]; then
