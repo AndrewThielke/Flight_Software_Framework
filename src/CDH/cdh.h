@@ -26,6 +26,8 @@ class CDH {
 private:
     Scheduler* scheduler;  // Pointer to Scheduler to prevent circular dependency
     Telemetry telemetry;
+    double maxDragForce = 0;  // for tracking the maximum drag force dynamically within the mission phase transition
+
 
 public:
     

@@ -3,6 +3,14 @@
 
 #include <cmath>
 
+
+
+constexpr double EARTH_GRAVITY = 9.80665;  // Standard gravity in m/s²
+constexpr double EARTH_RADIUS = 6378100.0; // m (Mean Earth Radius)
+constexpr double AIR_DENSITY_SEA_LEVEL = 1.225;  // kg/m^3
+
+
+
 class FlightDynamics {
 public:
     /**
@@ -21,13 +29,17 @@ public:
      */
     void update(double dt);
 
-    // Getters for key parameters
+    // Getters for Telemetry
     double getAltitude() const;
     double getVelocity() const;
     double getFuel() const;
     double getThrust() const;
     double getDeltaV() const;
     double getDragForce() const;
+    double getApoapsis() const;
+    double getPeriapsis() const;
+
+
 
 private:
     double mass;         // The current mass of the rocket (kg) - dynamically updated
@@ -41,6 +53,10 @@ private:
     double dragForce;    // The drag force in Newtons (N)
     double dragArea;     // The reference cross-sectional area (m²) - affects drag calculations
     double gravity;      // The acceleration due to gravity (m/s²) - updated dynamically
+    
+    // Orbital Parameters
+    double apoapsis = 0.0; // highest point in orbit
+    double periapsis = 0.0; // lowest point in orbit
 };
 
-#endif // FLIGHT_DYNAMICS_H
+#endif

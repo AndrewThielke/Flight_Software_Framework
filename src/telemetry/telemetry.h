@@ -14,6 +14,9 @@ struct TelemetryData {
     double thrust;
     double deltaV;
     double dragForce;
+
+    double apoapsis = 0.0;  // the highest orbital altitude
+    double periapsis = 0.0;  // the lowest orbital altitude
 };
 
 
