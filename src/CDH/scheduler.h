@@ -16,7 +16,7 @@ private:
     ADCS adcs;
     GNC gnc;
     Security security;
-    FlightDynamics dynamics;
+    FlightDynamics& dynamics;
     static Scheduler* instance; // Static instance to allow access in signal handler
     static volatile sig_atomic_t stopExecutionFlag; // flag that stops execution
     
@@ -28,10 +28,11 @@ private:
     // Required for Scheduler Acception
     CDH* cdh;  // Pointer to reference CDH
     Telemetry& telemetry; // Referencing CDH's telemetry instance so it doesn't need it's own
+    double prevAlt, prevVel, prevFuel; // for telemetry tracking
 
 
 public:
-    Scheduler(CDH* cdhSystem);
+    Scheduler(CDH* cdhSystem, FlightDynamics& flightDynamics);
     void run();
     void updateSchedulerPhase(MissionPhase newPhase);
     void stop();

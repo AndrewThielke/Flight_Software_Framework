@@ -71,14 +71,28 @@ fi
 # Compile the project
 echo -e "\nCompiling OpenSpaceFSW..." | tee -a $LOG_FILE
 
+
+
 # Fetch library paths
 JSONCPP_PATH=$(brew --prefix jsoncpp)
 OPENSSL_PATH=$(brew --prefix openssl@3)
 
-
 # Ensure correct environment paths
+export CPATH="$JSONCPP_PATH/include:$CPATH"
+export LIBRARY_PATH="$JSONCPP_PATH/lib:$LIBRARY_PATH"
+
 export CPATH="$OPENSSL_PATH/include:$CPATH"
-export LIBRARY_PATH="$OPENSSL_PATH/lib"
+export LIBRARY_PATH="$OPENSSL_PATH/lib:$LIBRARY_PATH"
+
+# Verify if jsoncpp is correctly installed
+if ! pkg-config --exists jsoncpp; then
+    echo "[ERROR] jsoncpp not found. Installing now..."
+    brew install jsoncpp
+fi
+
+# Fetch jsoncpp flags dynamically for portability
+JSONCPP_CFLAGS=$(pkg-config --cflags jsoncpp)
+JSONCPP_LDFLAGS=$(pkg-config --libs jsoncpp)
 
 # Compile the Flight Software
 g++ -g -O0 \
@@ -91,13 +105,14 @@ g++ -g -O0 \
     -I src/ADCS \
     -I src/GNC \
     -I src/CDH \
-    -I "$JSONCPP_PATH/include" -I "$OPENSSL_PATH/include" \
-    -L "$JSONCPP_PATH/lib" -ljsoncpp \
-    -L "$OPENSSL_PATH/lib" -Wl,-rpath,"$OPENSSL_PATH/lib" -lssl -lcrypto \
+    -I "$JSONCPP_PATH/include" -I "$OPENSSL_PATH/include" $JSONCPP_CFLAGS \
+    -L "$JSONCPP_PATH/lib" -L "$OPENSSL_PATH/lib" -Wl,-rpath,"$OPENSSL_PATH/lib" $JSONCPP_LDFLAGS \
+    -lssl -lcrypto \
     -o OpenSpaceFSW \
     src/core/main.cpp src/cdh/scheduler.cpp src/cdh/cdh.cpp src/flight_dynamics/flight_dynamics.cpp \
     src/gnc/gnc.cpp src/adcs/adcs.cpp src/security/security.cpp src/telemetry/telemetry.cpp \
     -std=c++17
+
 
 
 # Handle compilation failure(s) - PLACEHOLDER, will build on this

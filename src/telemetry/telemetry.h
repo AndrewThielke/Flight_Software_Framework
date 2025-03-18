@@ -6,7 +6,7 @@
 #include <fstream>
 #include <string>
 
-
+// Struct for telemetry data used across execution cycles
 struct TelemetryData {
     double altitude;
     double velocity;
@@ -14,12 +14,11 @@ struct TelemetryData {
     double thrust;
     double deltaV;
     double dragForce;
-
-    double apoapsis = 0.0;  // the highest orbital altitude
-    double periapsis = 0.0;  // the lowest orbital altitude
+    double apoapsis = 0.0;
+    double periapsis = 0.0;
+    double mass;  // tracks the rocket's mass dynamically
+    int stage = 0;   
 };
-
-
 
 class Telemetry {
 private:
@@ -27,6 +26,12 @@ private:
     double velocity_mps;
     double thrust_N;
     double fuel_kg;
+    double deltaV_mps;
+    double dragForce_N;
+    double apoapsis_m;
+    double periapsis_m;
+    int stage;
+    
     MissionPhase currentPhase;
     std::ofstream logFile;
 
@@ -35,7 +40,10 @@ public:
     ~Telemetry();  
 
     void update(double altitude, double velocity, double fuel);
-    void logData();
+    void updateFromData(const TelemetryData& data); // New optimized function
+
+    // so the terminal and log file transmitthe same data...
+    void logData(const TelemetryData& data);
     void setPhase(MissionPhase phase) { currentPhase = phase; }
     MissionPhase getPhase() const { return currentPhase; }
     std::string phaseToString(MissionPhase phase);

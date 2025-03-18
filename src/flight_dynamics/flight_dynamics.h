@@ -5,9 +5,11 @@
 
 
 
-constexpr double EARTH_GRAVITY = 9.80665;  // Standard gravity in m/s²
-constexpr double EARTH_RADIUS = 6378100.0; // m (Mean Earth Radius)
-constexpr double AIR_DENSITY_SEA_LEVEL = 1.225;  // kg/m^3
+constexpr double EARTH_GRAVITY = 9.80665;           // Standard gravity in m/s²
+constexpr double EARTH_RADIUS = 6378100.0;          // m (Mean Earth Radius)
+constexpr double AIR_DENSITY_SEA_LEVEL = 1.225;     // kg/m^3
+constexpr double GM_EARTH = 3.986e14;               // Earth's GM (m³/s²) ~ 3.986 × 10^14
+constexpr double SCALE_HEIGHT = 8500.0;             // Required
 
 
 
@@ -21,15 +23,12 @@ public:
      * @param isp The Specific impulse of the engine (s) - (PENDING CHANGES)
      * @param dragArea The Cross-sectional area of the rocket for drag calculations (m²) - (PENDING CHANGES)
      */
-    FlightDynamics(double mass, double thrust, double burnRate, double isp, double dragArea);
 
-    /**
-     * @brief Updates velocity, altitude, drag force, and fuel consumption per time step (dt)
-     * @param dt Time step in seconds
-     */
-    void update(double dt);
+    // Constructor: Initializes dynamics with SpaceX API data (reliable source)
+    FlightDynamics(double rocketMass, double rocketFuel, double thrustSea, double thrustVac,
+        double ispSea, double ispVac, double diameter, double burnTimeFirst, double burnTimeSecond);
 
-    // Getters for Telemetry
+    void update(double dt);  // Performs the simulation step
     double getAltitude() const;
     double getVelocity() const;
     double getFuel() const;
@@ -38,25 +37,43 @@ public:
     double getDragForce() const;
     double getApoapsis() const;
     double getPeriapsis() const;
-
-
+    int getCurrentStage() const;
+    bool isStageSeparation() const;
+    void advanceStage();
 
 private:
-    double mass;         // The current mass of the rocket (kg) - dynamically updated
-    double thrust;       // The thrust force in Newtons (N)
-    double burnRate;     // The fuel consumption rate in kg/s
-    double isp;          // The specific impulse of the engine (s)
-    double velocity;     // The current velocity in m/s
-    double altitude;     // The current altitude in meters
-    double fuel;         // The remaining fuel in kg
-    double deltaV;       // The change in velocity (m/s) - updated dynamically
-    double dragForce;    // The drag force in Newtons (N)
-    double dragArea;     // The reference cross-sectional area (m²) - affects drag calculations
-    double gravity;      // The acceleration due to gravity (m/s²) - updated dynamically
-    
-    // Orbital Parameters
-    double apoapsis = 0.0; // highest point in orbit
-    double periapsis = 0.0; // lowest point in orbit
+    // Rocket parameters from API
+    double initialMass;
+    double mass;
+    double fuel;
+    double initialFuel;
+    double thrustSeaLevel;
+    double thrustVacuum;
+    double ispSeaLevel;
+    double ispVacuum;
+    double dragArea;
+
+    // Fuel Burn Factors
+    double burnTimeFirstStage;
+    double burnRateFirstStage;
+    double burnTimeSecondStage;
+    double burnRateSecondStage;
+    double burnRate;  
+    int currentStage;
+
+    // Dynamic flight properties
+    double velocity;
+    double altitude;
+    double thrust;
+    double gravity;
+    double deltaV;
+    double dragForce;
+    double apoapsis;
+    double periapsis;
+
+    // Private helper functions
+    double getDragCoefficient(double mach, double altitude);
+    double getDynamicThrust(double altitude) const;
 };
 
 #endif
