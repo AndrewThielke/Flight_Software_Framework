@@ -1,15 +1,17 @@
 
 # Existing Execution Table (to be continued...)
 
-| __Step__ | __Phase__ | __Key Events__ |
+| **Step** | **Phase** | **Key Events** |
 |---------|-----------|--------------|
-| 1 | __Initialization__ | Print the header & confirm the dependencies exist (g++, jsoncpp, Python3)
-| 2 | __Data Retrieval__ | __API Use:__ <br> - Get __rocket specs__ (`get_rocket_specs.py`) <br> - Get __weather data__ (`get_weather_data.py`)
-| 3 | __Pre-Execution Confirmation__ | - Prompt user to type `"execute"` to continue on <br> - This also converts input to lowercase just incase of case sensitivity issues <br> - Abort the execution if input is incorrect
-| 4 | __Compilation__ | - Compile __OpenSpaceFSW__ with `g++` <br> - Handle __compilation errors__ if any are found
-| 5 | __Execution Start__ | - Launch __OpenSpaceFSW binary__ <br> - __Scheduler initialized__ <br> - __Security system initialized__ (test encryption/decryption of telemetry)
-| 6 | __Simulation Loop__ | __[For each loop cycle]:__ <br> - __Telemetry Data Updates__ <br> - Fetch real-time altitude, velocity, and fuel updates <br> - Log data for debugging <br> - __Security Monitoring__ <br> - Encrypt __live telemetry data__ <br> - Print __encrypted output__ <br> - Decrypt the data and __print verification output__ <br> - __Mission Phase Transitions__ <br> - Adjust phase dynamically based on altitude & velocity <br> - Update __burn, deorbit, or orbital insertion logic__ <br> - __System Health Checks__ <br> - Fuel check: trigger warnings when fuel is low <br> - Adjust thrust and drag values dynamically
-| 7 | __Shutdown__ | - Detect `Ctrl + C` signal (`SIGINT`) <br> - Execute __safe shutdown procedure__ <br> - Print __final logs__ before exit
+| 1 | **Initialization** | Print the header & confirm required dependencies (`g++`, `jsoncpp`, `Python3`) exist |
+| 2 | **Data Retrieval** | **API Use:** <br> - Get **rocket specs** (`get_rocket_specs.py`) <br> - Get **weather data** (`get_weather_data.py`) |
+| 3 | **Pre-Execution Confirmation** | - Prompt user to type `"execute"` to continue <br> - Convert input to lowercase to prevent case sensitivity issues <br> - Abort execution if input is incorrect |
+| 4 | **Compilation** | - Compile **OpenSpaceFSW** with `g++` <br> - Handle **compilation errors** if detected |
+| 5 | **Execution Start** | - Launch **OpenSpaceFSW binary** <br> - **Scheduler initialized** <br> - **Security system initialized** (test encryption/decryption of telemetry) |
+| 6 | **Simulation Loop** | **[For each loop cycle]:** <br> - **Telemetry Data Updates** <br> - Fetch real-time altitude, velocity, and fuel updates <br> - Log data for debugging <br> - **Security Monitoring** <br> - Encrypt **live telemetry data** <br> - Print **encrypted output** <br> - Decrypt and **print verification output** <br> - **Mission Phase Transitions** <br> - Adjust phase dynamically based on altitude, velocity, and dynamic pressure <br> - Detect **Max Q** based on peak dynamic pressure, triggering **Optimal Ascent Phase** <br> - Trigger **Stage Separation** when fuel depletion and Max Q are confirmed <br> - Compute **Apoapsis & Periapsis** using orbital mechanics <br> - **System Health Checks** <br> - Monitor fuel levels and trigger warnings when low <br> - Adjust thrust, drag, and gravity dynamically <br> - Validate **burn logic** to ensure proper orbital insertion |
+| 7 | **Shutdown** | - Detect `Ctrl + C` signal (`SIGINT`) <br> - Execute **safe shutdown procedure** <br> - Print **final logs** before exit |
+
+---
 
 # What's Next After Prototype Is Complete?
 
@@ -25,7 +27,7 @@
 8. Deorbit and & Re-Entry (if returning back down to Earth)
 9. Recovery & Post-Flight Operations like the landing event or splashdown. Data analysis and post-flight processing is required here.
 
-__Scheduler Responsibilities (Real-Time Execution)__
+**Scheduler Responsibilities (Real-Time Execution)**
 
 1. Calls flight_dynamics
     - Reads telemetry (altitude, velocity, fuel).
@@ -42,7 +44,7 @@ __Scheduler Responsibilities (Real-Time Execution)__
     - Continuously updates subsystems.
     - Ensures CDH stays in control of mission decisions.
 
-__CDH Responsibilities__
+**CDH Responsibilities**
 
 1. Loads & Validates Mission Parameters
     - Reads from program_configuration.json.
@@ -73,7 +75,7 @@ __CDH Responsibilities__
     - Reads API data, controls mission phase transitions, issues commands.
     - Decides what to do based on telemetry, scheduler just executes.
 
-## Refining Flight Dynamics & Physics Calulations For Each Mission Phase and Controling The Correct Margins (__Current Phase__)
+## Refining Flight Dynamics & Physics Calulations For Each Mission Phase and Controling The Correct Margins (**Current Phase**)
 
 - Incorporate real-world launch data from NASA, SpaceX, and other Open-Source Aerospace datasets to compare the computed telemetry values that this software produces. This increases the integrity of the data.
 - Validate the altitude, velocity, and drag computations using real aerospace models. Also confirm that these are being computed in the proper sequences.
@@ -83,7 +85,7 @@ __CDH Responsibilities__
 ## Improving The Security Features
 
 - Expand the current encryption beyond telemetry to ALL mission-critical data (i.e. system logs or execution reports)
-- Create authentication & access control to prevent unauthorized access to mission logs (__last__)
+- Create authentication & access control to prevent unauthorized access to mission logs (**last**)
 - Enhance the cryptographic integraty checks to actually be able to detect tampering in encrypted telemetry
 
 ## Creating Foundation for Simulation Capabilities / Logging & Data Visualization
